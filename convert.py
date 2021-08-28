@@ -17,7 +17,7 @@ def parseDescriptionAndTags(line):
     desc = desc[:len(desc) - 4].strip()
 
     tag_s = sections[2]
-    tag_l = list(map(strip, tag_s.split(',')))
+    tag_l = tag_s.split(',')
 
     return desc, tag_l
 
