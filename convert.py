@@ -56,7 +56,8 @@ with open('input.txt', 'r') as dimFile:
             itemHash, perkList = parseItemAndPerks(lines[i].strip())
 
             for j in range(4):
-                perkColumns[j].add(perkList[j])
+                if j < len(perkList):
+                    perkColumns[j].add(int(perkList[j]))
             i = i + 1
 
         # END perk parsing. save it to the list and prepare for next item or EOF
