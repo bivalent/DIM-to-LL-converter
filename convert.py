@@ -10,14 +10,13 @@ def parseName(line):
 
 def parseDescriptionAndTags(line):
     #//notes: balalahahlalha tags: (pve,mk)
-    sections = line.split(':')
-    # //notes: | desc 'tags' | actual tags
-    desc = sections[1]
-    # trim off the 'tags' part
-    desc = desc[:len(desc) - 4].strip()
+    notesIndex = line.find('notes:')
+    tagsIndex = line.find('tags:')
 
-    tag_s = sections[2]
-    tag_l = tag_s.split(',')
+    desc = line[notesIndex+len('notes:'):tagsIndex].strip()
+    tags = line[tagsIndex+len('tags:')].replace('(', '').replace(')', '')
+
+    tag_l = tags.split(',')
 
     return desc, tag_l
 
@@ -30,8 +29,8 @@ def parseItemAndPerks(line):
     return item, perks
 
 with open('input.txt', 'r') as dimFile:
-    title = dimFile.readline().split(':')[1].strip()
-    desc = dimFile.readline().split(':')[1].strip()
+    title = dimFile.readline()[len('title:'):].strip()
+    desc = dimFile.readline()[len('description:'):].strip()
 
     lines = dimFile.readlines()
 
@@ -43,7 +42,7 @@ with open('input.txt', 'r') as dimFile:
         if len(lines[i].strip()) == 0:
             i += 1
             continue
-
+        print(lines[i+1])
         #item metadata
         itemName = parseName(lines[i].strip())
         itemDesc, itemTags = parseDescriptionAndTags(lines[i+1].strip())
@@ -52,7 +51,7 @@ with open('input.txt', 'r') as dimFile:
 
         # now for perk rolls.
         i = i + 2
-        while len(lines[i].strip()) > 0:
+        while i < len(lines) and len(lines[i].strip()) > 0:
             print(lines[i])
             itemHash, perkList = parseItemAndPerks(lines[i].strip())
 
