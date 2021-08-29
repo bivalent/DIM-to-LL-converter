@@ -123,3 +123,5 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+output.json
+input.txt

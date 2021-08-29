@@ -14,8 +14,7 @@ def parseDescriptionAndTags(line):
     tagsIndex = line.find('tags:')
 
     desc = line[notesIndex+len('notes:'):tagsIndex].strip()
-    tags = line[tagsIndex+len('tags:')].replace('(', '').replace(')', '')
-
+    tags = line[tagsIndex+len('tags:'):].replace('(', '').replace(')', '')
     tag_l = tags.split(',')
 
     return desc, tag_l
